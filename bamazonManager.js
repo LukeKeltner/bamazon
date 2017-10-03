@@ -1,6 +1,10 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 var Table = require('cli-table');
+var newName = "";
+var newDepartment = "";
+var newPrice = 0;
+var newStock = 0;
 var connection = mysql.createConnection(
 {
 	host: "localhost",
@@ -134,12 +138,64 @@ var addToInventory = function()
 	})
 }
 
+var getPriceAndStock = function()
+{
+	inquirer.prompt(
+	[{
+		name: "newPriceAmount",
+		type: "input",
+		message: "How much does "+newName+" cost?",
+		validate: function(input)
+		{
+			if (isNaN(input))
+			{
+				console.log("You need to give me a number.")
+				return false;
+			}
+
+			return true;
+		}
+	},
+	{
+		name: 'newStockAmount',
+		type: 'input',
+		message: 'What is the intial stock of this product?',
+		validate: function(input)
+		{
+			if (isNaN(input))
+			{
+				console.log("You need to give me a number.")
+				return false;
+			}
+
+			return true;		
+		}
+	}]).then(function(answer4)
+	{
+		newPrice = parseInt(answer4.newPriceAmount)
+		newStock = parseInt(answer4.newStockAmount)
+		addItemToDataBase(newName, newDepartment, newPrice, newStock)	
+	})
+}
+
+var addItemToDataBase = function(name, department, price, stock)
+{
+	connection.query("INSERT INTO products(product_name, department_name, price, stock_quantity) VALUES (?, ?, ?, ?)", 
+	[name, department, price, stock], function(err, response)
+	{
+		if(err){throw err}
+
+		console.log("\n"+newName+" added!")
+		run()
+	})
+}
+
 var addNewProduct = function()
 {
-	var newName = "";
-	var newDepartment = "";
-	var newPrice = 0;
-	var newStock = 0;
+	newName = "";
+	newDepartment = "";
+	newPrice = 0;
+	newStock = 0;
 	inquirer.prompt(
 		[{
 			name:"newProductName",
@@ -178,57 +234,15 @@ var addNewProduct = function()
 								}]).then(function(answer3)
 								{
 									newDepartment = answer3.brandNewDep
+									getPriceAndStock()
 							})
 						}
 
 						else
 						{
 							newDepartment = answer2.newDepartmentName;
-						}
-
-						inquirer.prompt(
-							[{
-								name: "newPriceAmount",
-								type: "input",
-								message: "How much does "+newName+" cost?",
-								validate: function(input)
-								{
-									if (isNaN(input))
-									{
-										console.log("You need to give me a number.")
-										return false;
-									}
-
-									return true;
-								}
-							}]).then(function(answer4)
-							{
-								newPrice = parseInt(answer4.newPriceAmount)
-
-								inquirer.prompt(
-									[{
-										name: 'newStockAmount',
-										type: 'input',
-										message: 'What is the intial stock of this product?',
-										validate: function(input)
-										{
-											if (isNaN(input))
-											{
-												console.log("You need to give me a number.")
-												return false;
-											}
-
-											return true;		
-										}
-									}]).then(function(answer5)
-									{
-										newStock = parseInt(answer5.newStockAmount)
-										console.log("Name: "+newName)
-										console.log("Department: "+newDepartment)
-										console.log("Price: "+newPrice)
-										console.log("Stock: "+newStock)
-									})
-							})
+							getPriceAndStock()
+						}	
 				})
 			})
 	})
@@ -241,7 +255,7 @@ var run = function()
 			name: 'action',
 			type: 'list',
 			message: "What would you like to do sir?",
-			choices: ['View Products for Sale', 'View Low Inventory', 'Add to Inventory', 'Add New Product']
+			choices: ['View Products for Sale', 'View Low Inventory', 'Add to Inventory', 'Add New Product', 'Exit']
 		}]).then(function(answer)
 		{
 			if (answer.action === 'View Products for Sale')
@@ -262,6 +276,11 @@ var run = function()
 			else if (answer.action === 'Add New Product')
 			{
 				addNewProduct()
+			}
+
+			else if (answer.action === 'Exit')
+			{
+				connection.end()
 			}
 	})
 }
