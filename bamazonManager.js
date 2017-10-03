@@ -122,6 +122,7 @@ var addToInventory = function()
 						{
 							if(isNaN(input))
 							{
+								console.log("\n-----ERROR: Please give me a number----")
 								return false;
 							}
 
