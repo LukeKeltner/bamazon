@@ -11,11 +11,13 @@ var connection = mysql.createConnection(
 	database: "bamazon"
 })
 
-var updateDatabase = function(id, amountBought, currentStock)
+var updateDatabase = function(id, amountBought, currentStock, currentSales, revenue)
 {
+	var money = revenue + currentSales
 	var newStock = currentStock - amountBought;
-	connection.query("UPDATE products SET ? WHERE ?",
-		[{stock_quantity:newStock}, {id:id}], function(err, result)
+	connection
+	connection.query("UPDATE products SET ? , ? WHERE ? ",
+		[{stock_quantity:newStock}, {product_sales:money}, {id:id}], function(err, result)
 		{
 			if(err){throw err}
 		});
@@ -125,8 +127,9 @@ var buy = function ()
 								{
 									var id = indexToBuy + 1;
 									var cost = numberToBuy*results[indexToBuy].price
-									updateDatabase(id, numberToBuy, results[indexToBuy].stock_quantity)
-									console.log("You have spend $"+cost+" on this purchase.")
+									updateDatabase(id, numberToBuy, results[indexToBuy].stock_quantity, results[indexToBuy].product_sales, cost)
+									console.log("You have spent $"+cost+" on this purchase.")
+
 									buyAgain("Would you like to buy something else?")
 								}
 
