@@ -197,11 +197,31 @@ var addNewProduct = function()
 	newDepartment = "";
 	newPrice = 0;
 	newStock = 0;
+	currentProducts = []
+
+	connection.query('SELECT * FROM products', function(err, results)
+	{
+		currentProducts = results;
+	})
+
 	inquirer.prompt(
 		[{
 			name:"newProductName",
 			type:'input',
-			message: "What is the name of the new product?"
+			message: "What is the name of the new product?",
+			validate: function(input)
+			{
+				for (var i=0; i<currentProducts.length; i++)
+				{
+					if (input === currentProducts[i].product_name)
+					{
+						console.log("\nThis product already exists!")
+						return false;
+					}
+				}
+
+				return true;
+			}
 		}]).then(function(answer)
 		{
 			newName = answer.newProductName
@@ -215,8 +235,6 @@ var addNewProduct = function()
 					departments.push(results[i].department_name)
 				}
 
-				departments.push("New Department")
-
 				inquirer.prompt(
 					[{
 						name: 'newDepartmentName',
@@ -225,25 +243,10 @@ var addNewProduct = function()
 						choices: departments
 					}]).then(function(answer2)
 					{
-						if (answer2.newDepartmentName === "New Department")
-						{
-							inquirer.prompt(
-								[{
-									name:"brandNewDep",
-									type: "input",
-									message: "What is the name of this new department?"
-								}]).then(function(answer3)
-								{
-									newDepartment = answer3.brandNewDep
-									getPriceAndStock()
-							})
-						}
 
-						else
-						{
-							newDepartment = answer2.newDepartmentName;
-							getPriceAndStock()
-						}	
+						newDepartment = answer2.newDepartmentName;
+						getPriceAndStock()
+
 				})
 			})
 	})
