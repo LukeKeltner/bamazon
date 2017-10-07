@@ -225,7 +225,7 @@ var addNewProduct = function()
 		}]).then(function(answer)
 		{
 			newName = answer.newProductName
-			connection.query("SELECT DISTINCT department_name FROM products;", function(err, results)
+			connection.query("SELECT department_name FROM departments;", function(err, results)
 			{
 				var departments = []
 				if(err){throw err}
