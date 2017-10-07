@@ -25,3 +25,6 @@ int(20) AI PK | varchar(50) | varchar(50) | int(20) | int(20) | int(20)
 id | department_name | over_head_costs
 ------------ | ------------- |------------
 int(20) AI PK | varchar(50) | int(20) 
+
+## Video Demonstration
+<a href="https://youtu.be/9YW2XWnSX3c" target="_blank">Click Here!</a>
