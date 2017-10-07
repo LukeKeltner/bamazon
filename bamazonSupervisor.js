@@ -68,6 +68,61 @@ var viewProductsBySale = function()
 	})
 }
 
+var newDepartment = function()
+{
+	connection.query("SELECT department_name FROM departments;", function(err, result)
+	{
+		if(err){throw err}
+		
+
+		inquirer.prompt(
+			[{
+				name: 'newDeptName',
+				type: 'input',
+				message: "What is the name of this new department?",
+				validate: function(input)
+				{
+					for (var i=0; i<result.length; i++)
+					{
+						if (input === result[i].department_name)
+						{
+							console.log("\nThis department already exists!");
+							return false;
+						}
+					}
+
+					return true;
+				}
+			},
+			{
+				name: 'newOverHead',
+				type: 'input',
+				message: 'What is the over head cost for this new department?',
+				validate: function(input)
+				{
+					if (isNaN(input))
+					{
+						console.log("\nPlease give me a number")
+						return false;
+					}
+
+					return true;
+				}
+			}]).then(function(answer)
+			{
+				connection.query("INSERT INTO departments(department_name, over_head_costs) VALUES (?, ?);",
+				[answer.newDeptName, answer.newOverHead], function(err, result)
+				{
+					if(err){throw err}
+
+					console.log("\n"+answer.newDeptName+" added!")
+
+					run()
+				})
+			})
+	})
+}
+
 var run = function()
 {
 	inquirer.prompt(
@@ -85,7 +140,7 @@ var run = function()
 
 			else if (answer.response === 'Make New Department')
 			{
-				console.log("Making a new Department")
+				newDepartment()
 			}
 
 			else if (answer.response === 'Exit')
