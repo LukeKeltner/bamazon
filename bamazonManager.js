@@ -68,6 +68,8 @@ var viewLowInventory = function()
 			    , 'right': '║' , 'right-mid': '╢' , 'middle': '│' }
 		});
 
+		console.log(results)
+
 		for (var i=0; i<results.length; i++)
 		{
 			if (results[i].stock_quantity < 5)

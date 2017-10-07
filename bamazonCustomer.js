@@ -125,9 +125,8 @@ var buy = function ()
 							{
 								if (answer3.confirm)
 								{
-									var id = indexToBuy + 1;
 									var cost = numberToBuy*results[indexToBuy].price
-									updateDatabase(id, numberToBuy, results[indexToBuy].stock_quantity, results[indexToBuy].product_sales, cost)
+									updateDatabase(results[indexToBuy].id, numberToBuy, results[indexToBuy].stock_quantity, results[indexToBuy].product_sales, cost)
 									console.log("You have spent $"+cost+" on this purchase.")
 
 									buyAgain("Would you like to buy something else?")
