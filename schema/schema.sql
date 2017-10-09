@@ -27,7 +27,7 @@ INSERT INTO products(product_name, department_name, price, stock_quantity, produ
 ("Circular Glasses", "Clothing", 20, 89, 40),
 ("Wand", "Equipment", 200, 983, 1800),
 ("Hogwarts, A History", "Equipment", 150, 1000, 0),
-("Polyjuice", "Potion", 100, 3595,	70500);
+("Polyjuice", "Potion", 100, 3595, 70500);
 
 -- Putting in some intial departments
 INSERT INTO departments(department_name, over_head_costs) VALUES
