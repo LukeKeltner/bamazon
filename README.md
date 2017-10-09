@@ -5,7 +5,9 @@ This is a short academic app demonstrating the how to connect MySQL and Node.js.
 1. Clone bamazon repository
 1. `npm install`
 1. Create bamazon database by running [schema/schema.sql](https://github.com/LukeKeltner/bamazon/blob/master/schema/schema.sql)
-1. Item 2
+      1. [MySQL Workbench](https://github.com/LukeKeltner/bamazon/blob/master/schema/schema.sql) recommended
+      1. WARNING: bamazon will reset to default initial entries every time you run schema.sql.  To prevent this comment out `DROP DATABASE IF EXISTS bamazon;`
+1. Setup connection configuration in bamazonCustomer.js, bamazonManager.js, and bamazonSupervisor.js with your credientials
 
 
 ## Commands
