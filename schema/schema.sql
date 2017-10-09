@@ -34,5 +34,3 @@ INSERT INTO departments(department_name, over_head_costs) VALUES
 ("Clothing", 10000),
 ("Equipment", 3000),
 ("Potions", 45000);
-
-SELECT * FROM products;
