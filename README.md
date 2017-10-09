@@ -22,7 +22,7 @@ int(20) AI PK | varchar(50) | varchar(50) | decimal(50, 2) | int(20) | decimal(5
 
 ### bamazon.departments
 
-id | department_name | over_head_costs
+department_id | department_name | over_head_costs
 ------------ | ------------- |------------
 int(20) AI PK | varchar(50) | decimal(50, 2) 
 
