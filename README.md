@@ -2,12 +2,10 @@
 This is a short academic app demonstrating the how to connect MySQL and Node.js. It functions as a mock web store with three different functionalities; Customer, Manager, and Supervisor.
 
 ## Setup
-`npm install`
-1. Item 1
+1. `npm install`
+1. Run schema.sql
 1. Item 2
-1. Item 3
-   1. Item 3a
-   1. Item 3b
+
 
 ## Commands
 * `node bamazonCustomer.js`:
