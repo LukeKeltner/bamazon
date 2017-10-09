@@ -2,8 +2,9 @@
 This is a short academic app demonstrating the how to connect MySQL and Node.js. It functions as a mock web store with three different functionalities; Customer, Manager, and Supervisor.
 
 ## Setup
+1. Clone bamazon repository
 1. `npm install`
-1. Run schema.sql
+1. Create bamazon database by running [schema/schema.sql](https://github.com/LukeKeltner/bamazon/blob/master/schema/schema.sql)
 1. Item 2
 
 
