@@ -18,13 +18,13 @@ The MySQL Database is called bamazon.  It includes two tables.
 
 id | product_name | department_name | price | stock_quantity | product_sales 
 ------------ | ------------- |------------ | ------------- | ------------ | -------------
-int(20) AI PK | varchar(50) | varchar(50) | int(20) | int(20) | int(20)
+int(20) AI PK | varchar(50) | varchar(50) | decimal(50, 2) | int(20) | decimal(50, 2)
 
 ### bamazon.departments
 
 id | department_name | over_head_costs
 ------------ | ------------- |------------
-int(20) AI PK | varchar(50) | int(20) 
+int(20) AI PK | varchar(50) | decimal(50, 2) 
 
 ## Video Demonstration
 <a href="https://youtu.be/9YW2XWnSX3c" target="_blank">Click Here!</a>
